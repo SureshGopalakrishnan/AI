@@ -33,10 +33,10 @@ You must have a **Groq API key** to run this application.
 
 ### 2. Install Dependencies
 
-The project relies on a few key Python libraries. Run the following command to install them:
+The project dependencies are listed in `requirements.txt`. Run the following command to install them all:
 
 ```bash
-pip install gradio langchain-groq langchain_core pydantic
+pip install -r requirements.txt
 ````
 
 ### 3. Configure API Key
