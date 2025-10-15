@@ -1,0 +1,7 @@
+gradio
+langchain-groq
+langchain-core
+pydantic
+transformers
+torch
+accelerate
