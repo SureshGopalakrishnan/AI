@@ -11,7 +11,8 @@ All projects are designed for clarity, utilizing **minimal Python dependencies**
 
 | Folder | Title & Description | Core Technologies | Status |
 | :--- | :--- | :--- | :--- |
-| **`content-generator`** | **Multi-Agent Social Media Content Generator:** A Gradio web app using an agent-based architecture to produce platform-optimized, multilingual content (Twitter/X, LinkedIn, etc.) based on a single topic, tone and language input. Includes Pydantic-driven professional validation. | Python, Gradio, LangChain, Groq API, Pydantic (Structured Output) | Proof of Concept |
+|**[`content-generator`](./content-generator)** | **Multi-Agent Social Media Content Generator:** A Gradio web app using an agent-based architecture to produce platform-optimized, multilingual content (Twitter/X, LinkedIn, etc.) based on a single topic, tone and language input. Includes Pydantic-driven professional validation. | Python, `Gradio`, `LangChain`, Groq API, `Pydantic` (Structured Output) | Proof of Concept |
+|**[`temple-chatbot`](./temple-chatbot)** | **Sri Lalithambigai Temple ChatBot:** A Python console application providing real-time, fact-checked answers about the Temple using Google Search Grounding to ensure current and specific information. | Python, Gemini API, Google Search Grounding, `textwrap` | Proof of Concept |
 
 ---
 
