@@ -1,7 +1,7 @@
 import json                                           # Standard library for parsing and generating JSON data (handles LLM responses)
 from models.candidate_schema import CandidateProfile  # Pydantic model defining the structure of extracted candidate data
 from services.llm_service import LLMService           # Wrapper class for OpenAI API calls (handles prompt sending and response parsing)
-from utils.text_cleaner import clean_resume_text      # Function to normalize resume text (removes extra whitespace, special characters)
+from utils.text_cleaner import clean_text             # Function to normalize resume text (removes extra whitespace, special characters)
 
 
 class ResumeParserAgent:
@@ -14,17 +14,20 @@ class ResumeParserAgent:
     - Acts as reusable component in multi-agent system later
     """
 
-    # NOTE: This __init__ method is defined but will be overwritten by the second __init__ below.
-    # In Python, the last defined method wins. The parameter `llm_service` here is ignored.
-    def __init__(self, llm_service: LLMService):
-        self.llm_service = llm_service
+    def __init__(self, llm_service: LLMService | None = None):
+        """
+        Initialize LLM service.
 
-    # This second __init__ replaces the first one. It takes no arguments and creates its own LLMService.
-    def __init__(self):
+        WHY:
+        - Keeps LLM logic centralized
+        - Makes agent clean and reusable
+        """
         print("[INFO] Initializing ResumeParserAgent...")
-        self.llm_service = LLMService()  # Instantiates a new LLMService (reads API key from env)
-    
-    def build_prompt(self, resume_text: str) -> str:
+
+        # Use provided service OR create default instance
+        self.llm_service = llm_service if llm_service is not None else LLMService() # Instantiates a LLMService (reads API key from env)
+
+    def _build_prompt(self, resume_text: str) -> str:
         """
         PURPOSE:
         Create strict instruction prompt for LLM to extract structured data from the resume text.
@@ -118,14 +121,14 @@ RESUME:
             # STEP 2: Clean Text
             # -----------------------------
             # Remove noise (extra spaces, newlines, non‑ASCII if configured)
-            cleaned_text = clean_resume_text(resume_text)
+            cleaned_text = clean_text(resume_text)
             print("[DEBUG] Cleaned resume preview:", cleaned_text[:150])  # Log only first 150 chars for brevity
 
             # -----------------------------
             # STEP 3: Build Prompt
             # -----------------------------
             # Inject the cleaned text into the instruction template
-            prompt = self.build_prompt(cleaned_text)
+            prompt = self._build_prompt(cleaned_text)
             print("[DEBUG] Built prompt")
 
             # -----------------------------

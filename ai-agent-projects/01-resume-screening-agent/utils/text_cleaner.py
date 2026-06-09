@@ -1,14 +1,14 @@
 import re  # regular expression operations for pattern matching and text cleaning
 
 
-def clean_resume_text(text: str) -> str:
+def clean_text(text: str) -> str:
     """
     PURPOSE:
-    Cleans and normalizes resume text for better parsing before sending to LLM.
+    Cleans and normalizes text for better parsing before sending to LLM.
 
     WHY IMPORTANT:
     - PDFs may introduce noise (extra spaces, line breaks)
-    - Resumes can have inconsistent formatting, extra whitespace, and special characters.
+    - Resumes/Job Descriptions can have inconsistent formatting, extra whitespace, and special characters.
     - Cleaning helps improve the accuracy of information extraction and reduces hallucination risk in downstream agents.
 
     STEPS:
@@ -18,12 +18,12 @@ def clean_resume_text(text: str) -> str:
     3. Standardize common delimiters (e.g., replace tabs with spaces).
     4. Trim leading/trailing whitespace.
     """
-    print("[DEBUG] Starting resume text cleaning...")
+    print("[DEBUG] Starting text cleaning...")
 
     try:
         # Guard clause: Reject empty or non‑string inputs early
         if not text or not isinstance(text, str):
-            print("[ERROR] Invalid input type for resume text")
+            print("[ERROR] Invalid input type for text")
             return ""
         
         # Replace multiple consecutive newlines with a single newline
@@ -44,11 +44,11 @@ def clean_resume_text(text: str) -> str:
         # Remove leading and trailing whitespace
         cleaned_text = cleaned_text.strip()
         
-        print("[INFO] Resume text cleaned successfully")
+        print("[INFO] Text cleaned successfully")
         print(f"[DEBUG] Cleaned text length: {len(cleaned_text)} characters")
 
         return cleaned_text
     except Exception as e:
         # If any unexpected error occurs, log it and return original text as fallback
-        print(f"[ERROR] Failed while cleaning resume text: {str(e)}")
+        print(f"[ERROR] Failed while cleaning text: {str(e)}")
         return text  # Fallback to original text for safety
